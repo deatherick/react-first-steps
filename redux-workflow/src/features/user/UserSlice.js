@@ -5,7 +5,7 @@ export const signupUser = createAsyncThunk(
   async ({ name, username, password }, thunkAPI) => {
     try {
       const response = await fetch(
-        'https://mock-user-auth-server.herokuapp.com/api/v1/users',
+        'https://dummyjson.com/users/add',
         {
           method: 'POST',
           headers: {
@@ -13,7 +13,7 @@ export const signupUser = createAsyncThunk(
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            name,
+            firstname: name,
             username,
             password,
           }),
@@ -154,9 +154,12 @@ export const userSlice = createSlice({
       .addCase(signupUser.fulfilled, (state, { payload }) => {
         console.log('payload', payload);
         state.isFetching = false;
-        state.isSuccess = true;
-        state.email = payload.user.email;
-        state.username = payload.user.name;
+        //state.isSuccess = true;
+        //state.id = payload.id;
+        //state.email = payload.email;
+        //state.username = payload.name;
+        state.isError = true;
+        state.errorMessage = 'This functionality is not working on this demo';
       })
       .addCase(signupUser.pending, (state) => {
         state.isFetching = true;
