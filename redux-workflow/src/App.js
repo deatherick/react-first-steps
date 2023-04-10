@@ -3,7 +3,7 @@ import "./App.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Login from "./features/user/Login"
 import Signup from "./features/user/Signup"
-import Dashboard from "./features/user/Dashboard"
+import Paperbase from "./theme/Paperbase"
 import { PrivateRoute } from "./helpers/PrivateRoute"
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Route exact element={<Signup />} path="/signup" />
           <Route exact element={
             <PrivateRoute>
-              <Dashboard />
+              <Paperbase />
             </PrivateRoute>
           } path="/" />
         </Routes>

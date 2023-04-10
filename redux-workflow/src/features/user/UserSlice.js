@@ -23,6 +23,7 @@ export const signupUser = createAsyncThunk(
       console.log('data', data);
 
       if (response.status === 200) {
+        localStorage.setItem('id', data.id);
         localStorage.setItem('token', data.token);
         return { ...data, name: name, username: username };
       } else {
@@ -56,6 +57,7 @@ export const loginUser = createAsyncThunk(
       let data = await response.json();
       console.log('response', data);
       if (response.status === 200) {
+        localStorage.setItem('id', data.id);
         localStorage.setItem('token', data.token);
         return data;
       } else {
