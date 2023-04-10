@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Typography from '@mui/material/Typography';
-import { useSelector, useDispatch } from 'react-redux';
-import { adminSelector, fetchAllUsers, clearState } from './AdminSlice';
+import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 
 const columns = [
@@ -44,26 +43,24 @@ const MyCustomNoRowsOverlay = () => (
   </Typography>
 );
 
+const fetcher = async () => {
+  const response = await fetch('https://dummyjson.com/users')
+  let data = await response.json();
+  return data.users;
+}
+
 export default function DataGridUsers() {
 
-  const dispatch = useDispatch();
-  const { isFetching, isSuccess, isError, errorMessage, data } = useSelector(adminSelector);
+  const { isLoading, error, data} = useQuery('usersData', fetcher, {refetchOnWindowFocus: false})
 
-  useEffect(() => {
-    dispatch(fetchAllUsers());
-  }, [isSuccess]);
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(errorMessage);
-      dispatch(clearState());
-    }
-  }, [isError]);
+  if (error) {
+    toast.error(error.message);
+  }
 
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={!isFetching ? data : []}
+        rows={isLoading ? [] : data}
         columns={columns}
         initialState={{
           pagination: {

@@ -5,9 +5,13 @@ import Login from "./features/user/Login"
 import Signup from "./features/user/Signup"
 import Paperbase from "./theme/Paperbase"
 import { PrivateRoute } from "./helpers/PrivateRoute"
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+
 function App() {
+  const queryClient = new QueryClient();
   return (
     <div className="App">
+      <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
           <Route exact element={<Login />} path="/login" />
@@ -19,6 +23,7 @@ function App() {
           } path="/" />
         </Routes>
       </Router>
+      </QueryClientProvider>
     </div>
   )
 }
