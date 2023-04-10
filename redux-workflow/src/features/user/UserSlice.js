@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const signupUser = createAsyncThunk(
   'users/signupUser',
-  async ({ name, email, password }, thunkAPI) => {
+  async ({ name, username, password }, thunkAPI) => {
     try {
       const response = await fetch(
         'https://mock-user-auth-server.herokuapp.com/api/v1/users',
@@ -14,7 +14,7 @@ export const signupUser = createAsyncThunk(
           },
           body: JSON.stringify({
             name,
-            email,
+            username,
             password,
           }),
         }
@@ -24,7 +24,7 @@ export const signupUser = createAsyncThunk(
 
       if (response.status === 200) {
         localStorage.setItem('token', data.token);
-        return { ...data, username: name, email: email };
+        return { ...data, name: name, username: username };
       } else {
         return thunkAPI.rejectWithValue(data);
       }
@@ -37,7 +37,7 @@ export const signupUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'users/login',
-  async ({ email, password }, thunkAPI) => {
+  async ({ username, password }, thunkAPI) => {
     try {
       const response = await fetch(
         'https://dummyjson.com/auth/login',
@@ -48,7 +48,7 @@ export const loginUser = createAsyncThunk(
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            username: email,
+            username,
             password,
           }),
         }

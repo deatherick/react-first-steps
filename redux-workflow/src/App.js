@@ -12,12 +12,11 @@ function App() {
         <Routes>
           <Route exact element={<Login />} path="/login" />
           <Route exact element={<Signup />} path="/signup" />
-          <Route path="/"
-           exact element={
+          <Route exact element={
             <PrivateRoute>
               <Dashboard />
             </PrivateRoute>
-          }/>
+          } path="/" />
         </Routes>
       </Router>
     </div>
