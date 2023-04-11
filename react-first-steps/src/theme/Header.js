@@ -36,7 +36,6 @@ function Header(props) {
 
   useEffect(() => {
     if (isError) {
-      console.log('por error')
       dispatch(clearState());
       navigate('/login');
     }
@@ -134,9 +133,9 @@ function Header(props) {
       <AppBar component="div" position="static" elevation={0} sx={{ zIndex: 0 }}>
         <Tabs value={0} textColor="inherit">
           <Tab label="Users" />
-          <Tab label="Sign-in method" />
+        {/*   <Tab label="Sign-in method" />
           <Tab label="Templates" />
-          <Tab label="Usage" />
+          <Tab label="Usage" /> */}
         </Tabs>
       </AppBar>
     </React.Fragment>
